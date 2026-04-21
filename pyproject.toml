@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sondio"
+version = "0.0.2"
+description = "Placeholder for the Sondio Python SDK. Coming soon -- visit https://sondio.io/developers"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "Sondio", email = "dev@sondio.io" },
+]
+keywords = [
+    "sondio",
+    "energy",
+    "environmental",
+    "api",
+    "sdk",
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Homepage = "https://sondio.io"
+Documentation = "https://sondio.io/developers"
+Repository = "https://github.com/sondio-io/sondio-python"
