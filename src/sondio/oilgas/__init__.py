@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from .incidents import incidents
 from .permits import permits
+from .production import production
 from .wells import wells
 
-__all__ = ["incidents", "permits", "wells"]
+__all__ = ["incidents", "permits", "production", "wells"]

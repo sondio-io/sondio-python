@@ -120,6 +120,7 @@ def fetch(
     all_pages: bool = False,
     coerce: Optional[Coercer] = None,
     timeout: float = DEFAULT_TIMEOUT,
+    records_key: str = "items",
 ) -> pd.DataFrame:
     """GET `path` and return a pandas DataFrame.
 
@@ -129,6 +130,10 @@ def fetch(
 
     `all_pages=True`: iterate until `pagination.hasMore` is false or
     MAX_AUTO_PAGES is reached. Hitting the cap emits a UserWarning.
+
+    `records_key`: key holding the array of rows. Almost all endpoints use
+    the canonical ``items``; per-entity nested endpoints (e.g.
+    ``/oilgas-wells/:id/production``) use ``records`` and do not paginate.
     """
     api_key = _resolve_key()
     url = f"{_resolve_base_url().rstrip('/')}/{path.lstrip('/')}"
@@ -147,8 +152,8 @@ def fetch(
             if resp.status_code >= 400:
                 raise SondioAPIError(resp.status_code, resp.text)
             body = resp.json()
-            items = body.get("items") or []
-            collected.extend(items)
+            rows = body.get(records_key) or []
+            collected.extend(rows)
 
             last_has_more = bool((body.get("pagination") or {}).get("hasMore"))
             if explicit_page or not all_pages or not last_has_more:

@@ -35,6 +35,8 @@ from ._version import __version__
 from . import geo, oilgas, us
 from .client import SondioAPIError, SondioError
 from .earthquakes import earthquakes
+from .rail_lines import rail_lines
+from .wind_turbines import wind_turbines
 
 __all__ = [
     "__version__",
@@ -43,7 +45,9 @@ __all__ = [
     "earthquakes",
     "geo",
     "oilgas",
+    "rail_lines",
     "us",
+    "wind_turbines",
     "SondioAPIError",
     "SondioError",
 ]

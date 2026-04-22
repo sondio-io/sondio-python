@@ -16,14 +16,18 @@ import sondio
 sondio.api_key = "sk_sondio_..."  # or set SONDIO_API_KEY
 
 # Vertical-rule datasets — country is a parameter, not a prefix
-wells  = sondio.oilgas.wells(country="US", state="TX", basin="permian")
-quakes = sondio.earthquakes(state="TX", min_mag=3.0, days=30)
+wells    = sondio.oilgas.wells(country="US", state="TX", basin="permian")
+prod     = sondio.oilgas.production(wells.iloc[0]["external_id"], months=120)
+quakes   = sondio.earthquakes(state="TX", min_mag=3.0, days=30)
+turbines = sondio.wind_turbines(state="TX", min_year=2020)
+rails    = sondio.rail_lines(country="US", state="TX")
 
 # Agency-rule datasets: sondio.<country>.<agency>.<resource>
 ae     = sondio.us.epa.aquifer_exemptions(state="TX")
 ghg    = sondio.us.ghg.facilities(state="TX")
 pl     = sondio.us.phmsa.pipeline_incidents(state="TX")
 npdes  = sondio.us.npdes.permits(state="TX")
+svi    = sondio.us.cdc.svi_tracts(state="LA", min_rpl=0.9)
 
 # Geographic reference data
 states = sondio.geo.subdivisions(country="US")
