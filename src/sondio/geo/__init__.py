@@ -1,13 +1,10 @@
-"""Sondio Geo -- counties, basins, boundaries."""
+"""Geographic reference data — subdivisions, basins, boundaries.
 
-from sondio import _not_yet
+Endpoints that return geometry produce a GeoDataFrame; install the
+`sondio[geo]` extra for geopandas support.
+"""
+from __future__ import annotations
 
+from .subdivisions import subdivisions
 
-def counties(**kwargs):  # noqa: D103
-    _not_yet()
-
-def basins(**kwargs):  # noqa: D103
-    _not_yet()
-
-def boundaries(**kwargs):  # noqa: D103
-    _not_yet()
+__all__ = ["subdivisions"]

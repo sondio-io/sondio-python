@@ -1,49 +1,49 @@
-"""
-Sondio -- The unified Python interface for energy and environmental data.
+"""Sondio — Python SDK for energy and environmental data.
 
-This package is under active development. Visit https://sondio.io/developers
-for updates and early access.
+Thin wrapper over the Sondio REST API. Every call returns a pandas
+DataFrame (or GeoDataFrame for geographic results).
 
-Usage (coming soon):
+Quickstart:
 
     import sondio
+    sondio.api_key = "sk_sondio_..."  # or set SONDIO_API_KEY
 
-    sondio.api_key = "sk_sondio_..."
-    wells = sondio.wells(state="TX", basin="permian")
-    quakes = sondio.earthquakes(min_magnitude=3.0)
+    # Vertical-rule datasets (country as a parameter)
+    wells  = sondio.oilgas.wells(country="US", state="TX")
+    quakes = sondio.earthquakes(state="TX", min_mag=3.0, days=30)
+
+    # Agency-rule datasets live under sondio.<country>.<agency>.<resource>
+    ae     = sondio.us.epa.aquifer_exemptions(state="TX")
+    ghg    = sondio.us.ghg.facilities(state="TX")
+    pl     = sondio.us.phmsa.pipeline_incidents(state="TX")
+
+    # Geographic reference data (requires `sondio[geo]`)
+    states = sondio.geo.subdivisions(country="US")
+
+Pagination is opt-in. A call without `all_pages=True` returns the first
+page and warns if more exist. See README.md for details.
 """
-
-__version__ = "0.0.1"
+from __future__ import annotations
 
 api_key: str | None = None
-"""Your Sondio API key. Set via sondio.api_key = "sk_sondio_..." or SONDIO_API_KEY env var."""
+"""Your Sondio API key. Set via sondio.api_key = ... or SONDIO_API_KEY env var."""
 
+base_url: str | None = None
+"""Override the API base URL. Defaults to https://api.sondio.io/api/v1."""
 
-def _not_yet() -> None:
-    raise NotImplementedError(
-        "sondio SDK is not yet released. "
-        "Visit https://sondio.io/developers for updates and early access."
-    )
+from ._version import __version__
+from . import geo, oilgas, us
+from .client import SondioAPIError, SondioError
+from .earthquakes import earthquakes
 
-
-# Top-level convenience -- most common queries
-def wells(**kwargs):  # noqa: D103
-    _not_yet()
-
-def well(api_number: str, **kwargs):  # noqa: D103
-    _not_yet()
-
-def production(api_number: str, **kwargs):  # noqa: D103
-    _not_yet()
-
-def permits(**kwargs):  # noqa: D103
-    _not_yet()
-
-def incidents(**kwargs):  # noqa: D103
-    _not_yet()
-
-def earthquakes(**kwargs):  # noqa: D103
-    _not_yet()
-
-def ghg_facilities(**kwargs):  # noqa: D103
-    _not_yet()
+__all__ = [
+    "__version__",
+    "api_key",
+    "base_url",
+    "earthquakes",
+    "geo",
+    "oilgas",
+    "us",
+    "SondioAPIError",
+    "SondioError",
+]
